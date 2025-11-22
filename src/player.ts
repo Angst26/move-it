@@ -4,7 +4,7 @@ import {Direction, type DirectionType} from "./constants";
 import {canvas, ctx} from "./canvas.ts";
 import type {RectEntity} from "./entity.types.ts";
 
-export const INITIAL_SPEED = 50;
+export const INITIAL_SPEED = 350;
 export const PLAYER_HEIGHT = 20;
 export const PLAYER_WIDTH = 20;
 
