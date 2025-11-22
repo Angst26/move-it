@@ -21,9 +21,9 @@ export const player: Player = {
     render: render,
 }
 
-function render () {
+function render (this: Player) {
     ctx.fillStyle = "red";
-    ctx.fillRect(player.x, player.y, PLAYER_HEIGHT, PLAYER_WIDTH);
+    ctx.fillRect(this.x, this.y, PLAYER_HEIGHT, PLAYER_WIDTH);
 }
 
 function update(this: Player, dl: number) {
@@ -33,14 +33,13 @@ function update(this: Player, dl: number) {
     if (keys["d"]) dirX = 1;
     if (keys["w"]) dirY = -1;
     if (keys["s"]) dirY = 1;
-    console.log('x', dirX, 'y', dirY);
 
     this.direction = { x: dirX, y: dirY };
     this.x += this.direction.x * this.speed * dl;
     this.y += this.direction.y * this.speed * dl;
-    if(player.x < 0) player.x = 0;
-    if(player.y < 0) player.y = 0;
-    if(player.x > canvas.width - PLAYER_WIDTH) player.x = canvas.width - PLAYER_WIDTH;
-    if(player.y > canvas.height - PLAYER_HEIGHT) player.y = canvas.height - PLAYER_HEIGHT;
+    if(this.x < 0) this.x = 0;
+    if(this.y < 0) this.y = 0;
+    if(this.x > canvas.width - PLAYER_WIDTH) this.x = canvas.width - PLAYER_WIDTH;
+    if(this.y > canvas.height - PLAYER_HEIGHT) this.y = canvas.height - PLAYER_HEIGHT;
 }
 
