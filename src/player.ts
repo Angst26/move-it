@@ -1,29 +1,33 @@
 import {keys} from "./buttons-state";
-import {type Axis, PLAYER_HEIGHT, PLAYER_WIDTH} from "./constants";
-import {Direction, type DirectionType, INITIAL_SPEED} from "./constants";
+import {type Axis} from "./constants";
+import {Direction, type DirectionType} from "./constants";
 import {canvas, ctx} from "./canvas.ts";
+import type {RectEntity} from "./entity.types.ts";
 
-type Player = {
-    x: number;
-    y: number;
+export const INITIAL_SPEED = 50;
+export const PLAYER_HEIGHT = 20;
+export const PLAYER_WIDTH = 20;
+
+
+export type Player = RectEntity & {
     speed: number;
-    update: (dl: number) => void;
-    render: () => void;
-    direction: Axis
+    direction: Axis;
 }
 
 export const player: Player = {
-    x: 0,
-    y: 0,
+    x: 300,
+    y: 350,
     speed: INITIAL_SPEED,
     direction: Direction.IDLE,
     update: update,
     render: render,
+    height: PLAYER_HEIGHT,
+    width: PLAYER_WIDTH,
 }
 
 function render (this: Player) {
     ctx.fillStyle = "red";
-    ctx.fillRect(this.x, this.y, PLAYER_HEIGHT, PLAYER_WIDTH);
+    ctx.fillRect(this.x, this.y, this.height, this.width);
 }
 
 function update(this: Player, dl: number) {
@@ -39,7 +43,7 @@ function update(this: Player, dl: number) {
     this.y += this.direction.y * this.speed * dl;
     if(this.x < 0) this.x = 0;
     if(this.y < 0) this.y = 0;
-    if(this.x > canvas.width - PLAYER_WIDTH) this.x = canvas.width - PLAYER_WIDTH;
-    if(this.y > canvas.height - PLAYER_HEIGHT) this.y = canvas.height - PLAYER_HEIGHT;
+    if(this.x > canvas.width - this.width) this.x = canvas.width - this.width;
+    if(this.y > canvas.height - this.height) this.y = canvas.height - this.height;
 }
 

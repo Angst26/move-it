@@ -18,10 +18,3 @@ export const Direction: Record<DirectionKey, Axis> = {
     ...VDirection,
     IDLE: { x: 0, y: 0}
 };
-
-
-export const INITIAL_SPEED = 50;
-export const PLAYER_HEIGHT = 20;
-export const PLAYER_WIDTH = 20;
-export const TARGET_WIDTH = 10;
-export const TARGET_HEIGHT = 10;
