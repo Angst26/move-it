@@ -1,4 +1,4 @@
-type GameStatePhase = 'PLAYING' | 'GAME_OVER' | 'PAUSED';
+type GameStatePhase = 'PLAYING' | 'GAME_OVER';
 
 const store = {
     score: 0,
@@ -6,28 +6,50 @@ const store = {
     state: 'PLAYING' as GameStatePhase,
 }
 
-const GameState = {
+type State = {
+    tick: (dl: number) => void;
+    getPhase: () => GameStatePhase;
+    getScore: () => number;
+    getTimeLeft: () => number;
+    reset: () => void;
+    setLoose: () => void;
+    addScore: (val?: number) => void;
+    addTime: (secs: number) => void;
+}
+
+const GameState: State = {
     tick (dl: number)  {
         store.timeLeft = Math.max(0, store.timeLeft - dl);
-        if (store.score <= 0) {
+        if (store.timeLeft <= 0) {
             this.setLoose();
         }
     },
-    get () {
+    getPhase () {
         return store.state;
     },
-    set (newState: GameStatePhase) {
-        store.state = newState;
+    getScore ()  {
+      return store.score;
+    },
+    getTimeLeft () {
+        return store.timeLeft;
     },
     reset () {
-        store.timeLeft = 30;
         store.state = 'PLAYING';
+        store.timeLeft = 30;
         store.score = 0;
     },
-     setLoose () {
+    addScore (value: number = 1) {
+        store.score += value;
+    },
+    addTime(seconds: number) {
+        store.timeLeft += seconds;
+
+    },
+    setLoose () {
          store.state = 'GAME_OVER';
     },
 }
+
 
 export default GameState;
 

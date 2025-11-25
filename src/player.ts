@@ -7,6 +7,8 @@ import type {RectEntity} from "./entity.types.ts";
 export const INITIAL_SPEED = 350;
 export const PLAYER_HEIGHT = 20;
 export const PLAYER_WIDTH = 20;
+export const INIT_X = 300;
+export const INIT_Y = 350;
 
 
 export type Player = RectEntity & {
@@ -15,14 +17,20 @@ export type Player = RectEntity & {
 }
 
 export const player: Player = {
-    x: 300,
-    y: 350,
+    x: INIT_X,
+    y: INIT_Y,
     speed: INITIAL_SPEED,
     direction: Direction.IDLE,
     update: update,
     render: render,
+    resetPosition: resetPostion,
     height: PLAYER_HEIGHT,
     width: PLAYER_WIDTH,
+}
+
+function resetPostion () {
+    player.x = INIT_X;
+    player.y = INIT_Y;
 }
 
 function render (this: Player) {

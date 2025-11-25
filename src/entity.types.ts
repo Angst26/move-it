@@ -5,4 +5,5 @@ export type RectEntity = {
     height: number;
     update: (dl: number) => void;
     render: () => void;
+    resetPosition: () => void;
 };

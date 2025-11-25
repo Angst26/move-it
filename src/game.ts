@@ -3,16 +3,16 @@ import {canvas, ctx} from "./canvas.ts";
 import {target} from "./target.ts";
 import GameState from "./state.ts";
 import {keys} from "./buttons-state.ts";
-import {renderHud, update} from "./hud.ts";
+import {renderHud} from "./hud.ts";
 
 export function updateWorld(dl: number) {
-    if(GameState.get() === 'GAME_OVER') {
-        if(keys['r']) GameState.reset();
+    if(GameState.getPhase() === 'GAME_OVER') {
+        if(keys['r']) resetWorld();
         return;
     }
     player.update(dl);
     target.update(dl);
-    update(dl);
+    GameState.tick(dl);
 }
 
 export function renderWorld(){
@@ -20,4 +20,10 @@ export function renderWorld(){
     player.render();
     target.render();
     renderHud();
+}
+
+export function resetWorld() {
+    player.resetPosition();
+    target.resetPosition();
+    GameState.reset();
 }

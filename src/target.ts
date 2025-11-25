@@ -6,6 +6,8 @@ import GameState from "./state.ts";
 
 export const TARGET_WIDTH = 10;
 export const TARGET_HEIGHT = 10;
+export const INIT_X = 500;
+export const INIT_Y = 500;
 
 export const target: RectEntity = {
     x: 500,
@@ -14,12 +16,18 @@ export const target: RectEntity = {
     height: TARGET_HEIGHT,
     update: update,
     render: render,
+    resetPosition: resetPosition
+}
+
+function resetPosition() {
+    target.x = INIT_X;
+    target.y = INIT_Y;
 }
 
 function update(this: typeof target) {
     if(checkCollision(player, target)) {
-        GameState.score++;
-        GameState.timeLeft += 2;
+        GameState.addScore();
+        GameState.addTime(2);
         this.x = Math.random() * (canvas.width - this.width);
         this.y = Math.random() * (canvas.height - this.height);
     }
